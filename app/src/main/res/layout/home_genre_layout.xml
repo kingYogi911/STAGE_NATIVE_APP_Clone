@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:text="Select From Genre"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/bt_genre_geet"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="8dp"
+                app:rippleColor="@color/white">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/gradient_blue"
+                    android:text="Geet"
+                    android:letterSpacing="0"
+                    android:textAllCaps="false"
+                    android:textSize="12sp"
+                    app:backgroundTint="@null" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/bt_genre_comedy"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="8dp"
+                app:rippleColor="@color/white">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/gradient_orange"
+                    android:text="Comedy"
+                    android:letterSpacing="0"
+                    android:textAllCaps="false"
+                    android:textSize="12sp"
+                    app:backgroundTint="@null" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/bt_genre_ragni"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="8dp"
+                app:rippleColor="@color/white">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/gradient_red_1"
+                    android:letterSpacing="0"
+                    android:text="Ragni"
+                    android:textAllCaps="false"
+                    android:textSize="12sp"
+                    app:backgroundTint="@null" />
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/bt_genre_poetry"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="8dp"
+                app:rippleColor="@color/white">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:letterSpacing="0"
+                    android:background="@drawable/gradient_yellow"
+                    android:text="Poetry"
+                    android:textAllCaps="false"
+                    android:textSize="12sp"
+                    app:backgroundTint="@null" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/bt_genre_storytelling"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="8dp"
+                app:rippleColor="@color/white">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/gradient_red_2"
+                    android:text="Storytelling"
+                    android:letterSpacing="0"
+                    android:textAllCaps="false"
+                    android:textSize="12sp"
+                    app:backgroundTint="@null" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/bt_genre_web_series"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="8dp"
+                app:rippleColor="@color/white">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/gradient_yellow"
+                    android:letterSpacing="0"
+                    android:text="Web-Series"
+                    android:textAllCaps="false"
+                    android:textSize="12sp"
+                    app:backgroundTint="@null" />
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <!--Web Series-->
+    <include
+        android:id="@+id/web_series_list"
+        layout="@layout/horizontal_list_with_see_all_and_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!--Videos-->
+    <include
+        android:id="@+id/videos_list"
+        layout="@layout/horizontal_list_with_see_all_and_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" />
+
+</LinearLayout>

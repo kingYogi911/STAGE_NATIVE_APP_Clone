@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.home.HomeFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="?android:attr/windowBackground"
+        app:elevation="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_launcher" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/app_name"
+                android:textAllCaps="true"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/bt_dialect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp"
+                android:drawableEnd="@drawable/keyboard_arrow_down_24"
+                android:text="Haryanvi"
+                android:textAllCaps="false"
+                android:textSize="12sp"
+                app:cornerRadius="10dp"
+                app:strokeColor="@color/white"
+                app:strokeWidth="1dp" />
+
+            <ImageView
+                android:id="@+id/bt_search"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginHorizontal="5dp"
+                android:background="?actionBarItemBackground"
+                android:padding="5dp"
+                android:src="@drawable/baseline_search_24"
+                app:tint="@color/white" />
+        </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp" />
+
+                <!--View Pager Dots-->
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tab_indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_gravity="bottom"
+                    android:background="@android:color/transparent"
+                    app:tabBackground="@drawable/tab_pager_selector"
+                    app:tabGravity="center"
+                    app:tabIndicatorHeight="0dp"
+                    app:tabPaddingEnd="8dp"
+                    app:tabPaddingStart="8dp" />
+
+                <!--Promotional Add 1-->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="8dp">
+
+                    <ImageView
+                        android:id="@+id/iv_advertisement"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:src="@color/white" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <!--Top 20 in Haryana Shows-->
+                <include
+                    android:id="@+id/movies_list_1"
+                    layout="@layout/horizontal_list_with_see_all_and_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp" />
+
+                <!--Promotional Add 2-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginVertical="20dp"
+                    android:src="@color/white" />
+
+                <!--VIP Shows-->
+                <include
+                    android:id="@+id/movies_list_2"
+                    layout="@layout/horizontal_list_with_see_all_and_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <!--Promotional Add 2-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginVertical="20dp"
+                    android:src="@color/white" />
+
+                <!--VIP Videos-->
+                <include
+                    android:id="@+id/movies_list_3"
+                    layout="@layout/horizontal_list_with_see_all_and_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <!--Coming Soon-->
+                <include
+                    android:id="@+id/movies_list_4"
+                    layout="@layout/horizontal_list_with_see_all_and_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp" />
+
+                <!--Special For You-->
+                <include
+                    android:id="@+id/movies_list_5"
+                    layout="@layout/horizontal_list_with_see_all_and_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp" />
+
+                <!--Promotional Add 3-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginVertical="20dp"
+                    android:src="@color/white" />
+
+
+                <include
+                    android:id="@+id/genre_layout"
+                    layout="@layout/home_genre_layout"/>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</LinearLayout>
