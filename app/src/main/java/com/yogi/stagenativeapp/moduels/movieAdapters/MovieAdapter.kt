@@ -1,4 +1,4 @@
-package com.yogi.stagenativeapp.ui.movieAdapters
+package com.yogi.stagenativeapp.moduels.movieAdapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.yogi.stagenativeapp.ui.home.HomeFragment"
+        android:name="com.yogi.stagenativeapp.moduels.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_upcoming_videos"
-        android:name="com.yogi.stagenativeapp.ui.dashboard.DashboardFragment"
+        android:name="com.yogi.stagenativeapp.moduels.dashboard.DashboardFragment"
         android:label="@string/title_upcoming"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_setting"
-        android:name="com.yogi.stagenativeapp.ui.notifications.NotificationsFragment"
+        android:name="com.yogi.stagenativeapp.moduels.notifications.NotificationsFragment"
         android:label="@string/title_setting"
         tools:layout="@layout/fragment_notifications" />
 </navigation>

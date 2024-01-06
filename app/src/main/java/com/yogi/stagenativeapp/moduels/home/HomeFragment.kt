@@ -1,4 +1,4 @@
-package com.yogi.stagenativeapp.ui.home
+package com.yogi.stagenativeapp.moduels.home
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -14,17 +14,18 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewpager2.widget.ViewPager2
-import androidx.viewpager2.widget.ViewPager2.ScrollState
 import com.yogi.stagenativeapp.R
+import com.yogi.stagenativeapp.data.DataState
 import com.yogi.stagenativeapp.databinding.FragmentHomeBinding
-import com.yogi.stagenativeapp.ui.home.data.HomeScrollItem
-import com.yogi.stagenativeapp.ui.movieAdapters.MovieAdapter
+import com.yogi.stagenativeapp.moduels.home.data.HomeScreenData
+import com.yogi.stagenativeapp.moduels.movieAdapters.MovieAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
@@ -41,6 +42,8 @@ class HomeFragment : Fragment() {
     private val specialForYouAdapter = MovieAdapter()
     private val adapter5 = MovieAdapter()
     private val adapter6 = MovieAdapter()
+    private val popularArtistAdapter = ArtistListAdapter()
+    private val artistMovieCardAdapter = ArtistMovieCardAdapter()
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -66,27 +69,33 @@ class HomeFragment : Fragment() {
                 ViewPager2.OnPageChangeCallback() {
                 override fun onPageScrollStateChanged(state: Int) {
                     super.onPageScrollStateChanged(state)
-                    val listSize = viewModel.data.value.size
-                    if (state == ViewPager2.SCROLL_STATE_IDLE) {
-                        when (viewPager.currentItem) {
-                            listSize + 1 -> viewPager.setCurrentItem(1, false)
-                            0 -> viewPager.setCurrentItem(listSize - 1, false)
+                    val dataState = viewModel.data.value
+                    if (dataState is DataState.Success) {
+                        val listSize = dataState.data.autoScrollData.size
+                        if (state == ViewPager2.SCROLL_STATE_IDLE) {
+                            when (viewPager.currentItem) {
+                                listSize + 1 -> viewPager.setCurrentItem(1, false)
+                                0 -> viewPager.setCurrentItem(listSize - 1, false)
+                            }
                         }
                     }
                 }
 
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
-                    val listSize = viewModel.data.value.size
-                    if (position != 0 && position != listSize + 1) {
-                        tabIndicator.getTabAt(position - 1)?.select()
+                    val dataState = viewModel.data.value
+                    if (dataState is DataState.Success) {
+                        val listSize = dataState.data.autoScrollData.size
+                        if (position != 0 && position != listSize + 1) {
+                            tabIndicator.getTabAt(position - 1)?.select()
+                        }
                     }
                 }
             })
             moviesList1.also {
                 it.rv.adapter = adapter1
                 it.tvTitle.text = "Top 20 in Haryana"
-                it.tvTitle.setTextColor(ContextCompat.getColor(requireContext(),R.color.white))
+                it.tvTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
                 it.btSeeAll.isVisible = false
             }
             moviesList2.also {
@@ -106,7 +115,7 @@ class HomeFragment : Fragment() {
             moviesList4.also {
                 it.rv.adapter = adapter4
                 it.tvTitle.text = "Coming Soon"
-                it.tvTitle.setTextColor(ContextCompat.getColor(requireContext(),R.color.white))
+                it.tvTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
             }
             moviesList5.also {
                 it.rv.adapter = specialForYouAdapter
@@ -124,11 +133,15 @@ class HomeFragment : Fragment() {
                 videosList.also {
                     it.rv.adapter = adapter6
                     it.tvTitle.text = "Videos"
-                    it.tvTitle.setTextColor(ContextCompat.getColor(requireContext(),R.color.white))
+                    it.tvTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
                     it.btSeeAll.setOnClickListener {
 
                     }
                 }
+            }
+            artistsLayout.also {
+                it.rvArtistList.adapter = popularArtistAdapter
+                it.rvArtistVideos.adapter = artistMovieCardAdapter
             }
         }
         return root
@@ -142,9 +155,9 @@ class HomeFragment : Fragment() {
                 while (true) {
                     delay(8000)
                     withContext(Dispatchers.Main) {
-                        if(infiniteRecyclerAdapter.itemCount>0) {
+                        if (infiniteRecyclerAdapter.itemCount > 0) {
                             binding.viewPager.run {
-                                if(this.scrollState == ViewPager2.SCROLL_STATE_IDLE) {
+                                if (this.scrollState == ViewPager2.SCROLL_STATE_IDLE) {
                                     setCurrentItem(
                                         binding.viewPager.currentItem + 1,
                                         true
@@ -159,35 +172,63 @@ class HomeFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewModel.data.collect {
-                    updateData(it)
-                }
-            }
-        }
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED){
-                viewModel.vipMovies.collectLatest {
-                    adapter1.setData(it)
-                    adapter2.setData(it)
-                    adapter3.setData(it)
-                    adapter4.setData(it)
-                    specialForYouAdapter.setData(it)
-                    adapter5.setData(it)
-                    adapter6.setData(it)
+                    when (it) {
+                        DataState.Loading -> {
+
+                        }
+
+                        is DataState.Success -> {
+                            updateData(it.data)
+                        }
+
+                        is DataState.Error -> {
+
+                        }
+                    }
                 }
             }
         }
     }
 
-    private fun updateData(data: List<HomeScrollItem>) {
-        infiniteRecyclerAdapter.setData(data)
+    private fun updateData(data: HomeScreenData) {
+
+        //auto scroll viewpager
+        infiniteRecyclerAdapter.setData(data.autoScrollData)
         binding.tabIndicator.removeAllTabs()
-        repeat(data.size) {
+        repeat(data.autoScrollData.size) {
             binding.tabIndicator.apply {
                 val tab = newTab()
                 this.addTab(tab)
             }
         }
         binding.viewPager.currentItem = 1
+
+        //top 20
+        adapter1.setData(data.to20List)
+
+        //vip shows
+        adapter2.setData(data.vipShows)
+
+        //vip videos
+        adapter3.setData(data.vipVideos)
+
+        //coming soon
+        adapter4.setData(data.comingSoonList)
+
+        //special for you
+        specialForYouAdapter.setData(data.specialForYouList)
+
+        //web series
+        adapter5.setData(data.webSeriesList)
+
+        //videos
+        adapter6.setData(data.videosList)
+
+        //artist
+        popularArtistAdapter.submitList(data.artistsList)
+
+        //artist movies
+        artistMovieCardAdapter.setData(data.artistMoviesCards)
     }
 
     override fun onDestroyView() {

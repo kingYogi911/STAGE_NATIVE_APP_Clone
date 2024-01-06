@@ -1,4 +1,4 @@
-package com.yogi.stagenativeapp.ui.notifications
+package com.yogi.stagenativeapp.moduels.notifications
 
 import android.os.Bundle
 import android.view.LayoutInflater

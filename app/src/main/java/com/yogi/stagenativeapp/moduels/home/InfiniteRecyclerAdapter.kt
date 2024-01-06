@@ -1,15 +1,14 @@
-package com.yogi.stagenativeapp.ui.home
+package com.yogi.stagenativeapp.moduels.home
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.yogi.stagenativeapp.R
 import com.yogi.stagenativeapp.databinding.HomeViewPagerItemBinding
-import com.yogi.stagenativeapp.ui.home.data.HomeScrollItem
+import com.yogi.stagenativeapp.moduels.home.data.HomeScrollItem
 
 class InfiniteRecyclerAdapter(
 ) : RecyclerView.Adapter<InfiniteRecyclerAdapter.InfiniteRecyclerViewHolder>() {

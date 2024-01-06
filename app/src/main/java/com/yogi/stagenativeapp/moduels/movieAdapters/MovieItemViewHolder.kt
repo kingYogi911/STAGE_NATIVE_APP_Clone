@@ -1,4 +1,4 @@
-package com.yogi.stagenativeapp.ui.movieAdapters
+package com.yogi.stagenativeapp.moduels.movieAdapters
 
 import androidx.recyclerview.widget.RecyclerView
 import com.yogi.stagenativeapp.databinding.MovieCardItemLayoutBinding

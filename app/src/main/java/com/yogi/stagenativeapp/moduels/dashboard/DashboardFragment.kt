@@ -1,4 +1,4 @@
-package com.yogi.stagenativeapp.ui.dashboard
+package com.yogi.stagenativeapp.moduels.dashboard
 
 import android.os.Bundle
 import android.view.LayoutInflater

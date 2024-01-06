@@ -1,4 +1,4 @@
-package com.yogi.stagenativeapp.ui.home.data
+package com.yogi.stagenativeapp.moduels.home.data
 
 data class HomeScrollItem(
     val id:Int,
